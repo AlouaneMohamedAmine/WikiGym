@@ -16,6 +16,13 @@ CREATE TABLE IF NOT EXISTS `User` (
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE
   );
 
+DROP TABLE IF EXISTS `Muscle`;
+CREATE TABLE IF NOT EXISTS `Muscle` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 DROP TABLE IF EXISTS `exercices`;
 CREATE TABLE IF NOT EXISTS `exercices` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -24,9 +31,12 @@ CREATE TABLE IF NOT EXISTS `exercices` (
   `image` VARCHAR(255),
   `video` VARCHAR(255),
   `admin_id` INT,
+  `muscle_id` INT,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_admin_id`
-  FOREIGN KEY (`admin_id`) REFERENCES `User`(`id`)
+  FOREIGN KEY (`admin_id`) REFERENCES `User`(`id`),
+  CONSTRAINT `fk_muscle_id`
+  FOREIGN KEY (`muscle_id`) REFERENCES `Muscle`(`id`)
 );
 
 

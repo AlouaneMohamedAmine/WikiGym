@@ -14,6 +14,7 @@ const categoryControllers = require("./controllers/categoryControllers");
 const articleControllers = require("./controllers/articleControllers");
 const favoriteControllers = require("./controllers/favoriteControllers");
 const workoutControllers = require("./controllers/workoutControllers");
+const exercicesControllers = require("./controllers/exercicesControllers");
 
 // Gestion des users :
 router.get("/api/users", userControllers.browse);
@@ -82,5 +83,25 @@ router.get("/:id", workoutControllers.readWorkout);
 router.post("/", workoutControllers.addWorkout);
 router.put("/:id", workoutControllers.editWorkout);
 router.delete("/:id", workoutControllers.destroyWorkout);
+
+// Gestion des exercices :
+
+router.post(
+  "/api/exercices",
+  verifyToken,
+  upload.fields([{ name: "video" }, { name: "img" }]),
+  exercicesControllers.renameExercices,
+  exercicesControllers.renameImgExercices,
+  exercicesControllers.uploadExercices
+);
+
+router.get("/api/exercices", exercicesControllers.browse);
+router.get("/api/exercices/infos/:id", exercicesControllers.read);
+router.get(
+  "/api/exercices/:fileName",
+  exercicesControllers.sendExercices,
+  exercicesControllers.sendImgExercices
+);
+router.delete("/api/exercices/:id", exercicesControllers.destroy);
 
 module.exports = router;
