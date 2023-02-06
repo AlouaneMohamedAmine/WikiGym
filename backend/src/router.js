@@ -15,6 +15,8 @@ const articleControllers = require("./controllers/articleControllers");
 const favoriteControllers = require("./controllers/favoriteControllers");
 const workoutControllers = require("./controllers/workoutControllers");
 const exercicesControllers = require("./controllers/exercicesControllers");
+const muscleControllers = require("./controllers/muscleControllers");
+const exerciseWorkoutControllers = require("./controllers/exerciseWorkoutControllers");
 
 // Gestion des users :
 router.get("/api/users", userControllers.browse);
@@ -78,11 +80,11 @@ router.delete(
 
 // Gestion des séances d'entraînements :
 
-router.get("/", workoutControllers.browseWorkout);
-router.get("/:id", workoutControllers.readWorkout);
-router.post("/", workoutControllers.addWorkout);
-router.put("/:id", workoutControllers.editWorkout);
-router.delete("/:id", workoutControllers.destroyWorkout);
+router.get("/api/workout", workoutControllers.browseWorkout);
+router.get("/api/workout/:id", workoutControllers.readWorkout);
+router.post("/api/workout", workoutControllers.addWorkout);
+router.put("/api/workout/:id", workoutControllers.editWorkout);
+router.delete("/api/workout/:id", workoutControllers.destroyWorkout);
 
 // Gestion des exercices :
 
@@ -103,5 +105,33 @@ router.get(
   exercicesControllers.sendImgExercices
 );
 router.delete("/api/exercices/:id", exercicesControllers.destroy);
+
+// Gestion des Exercices
+
+router.get("/api/muscle", muscleControllers.browse);
+router.get("/api/muscle/:id", muscleControllers.read);
+router.post("/api/muscle", muscleControllers.add);
+router.put("/api/muscle/:id", muscleControllers.edit);
+router.delete("/api/muscle/:id", muscleControllers.destroy);
+
+// Gestion des contenu d'entraînement
+
+router.get("/api/exerciceWorkout", exerciseWorkoutControllers.browse);
+router.get(
+  "/api/exerciceWorkout/byWorkoutId/:workoutId",
+  exerciseWorkoutControllers.browseByWorkoutId
+);
+router.get(
+  "/api/exerciceWorkout/byExerciseId/:exerciseId",
+  exerciseWorkoutControllers.browseByExerciseId
+);
+router.delete(
+  "/api/exerciceWorkout/byWorkoutId/:workoutId",
+  exerciseWorkoutControllers.destroyByWorkoutId
+);
+router.delete(
+  "/api/exerciceWorkout/byExerciseId/:exerciseId",
+  exerciseWorkoutControllers.destroyByExerciseId
+);
 
 module.exports = router;

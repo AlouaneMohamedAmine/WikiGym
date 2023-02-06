@@ -135,7 +135,7 @@ const sendExercices = (req, res) => {
   });
 };
 
-const sendImagExercices = (req, res) => {
+const sendImgExercices = (req, res) => {
   const { fileName } = req.params;
 
   res.download(imgExercicesDirectory + fileName, fileName, (err) => {
@@ -152,6 +152,6 @@ module.exports = {
   browse,
   read,
   renameImgExercices,
-  sendImagExercices,
+  sendImgExercices,
   destroy,
 };
